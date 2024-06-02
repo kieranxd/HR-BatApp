@@ -1,0 +1,4 @@
+main/torch/lib/dnnl.lib filter=lfs diff=lfs merge=lfs -text
+models/detection/basemodel.pt.zip filter=lfs diff=lfs merge=lfs -text
+main/torch/lib/torch_cpu.dll filter=lfs diff=lfs merge=lfs -text
+main/torch/lib/mkldnn.lib filter=lfs diff=lfs merge=lfs -text
