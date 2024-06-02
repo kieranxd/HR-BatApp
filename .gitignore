@@ -3,3 +3,6 @@ node_modules/
 backstage/build/
 dist/
 batdetect2/.venv/
+main/torch/lib/mkldnn.lib
+models/detection/basemodel.pt.zip
+main/torch/lib/torch_cpu.dll
