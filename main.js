@@ -21,7 +21,7 @@ require("electron-debug")({
 
 const path = require("path");
 
-var win, aboutWindow, processImageWindow, processAudioWindow;
+var win, processImageWindow, processAudioWindow;
 
 const MENU_HEIGHT = 20;
 
@@ -36,56 +36,6 @@ function shrinkWindowHeight(windowHeight) {
   }
 
   return windowHeight;
-}
-
-function openAboutWindow() {
-  if (aboutWindow) {
-    return;
-  }
-
-  const iconLocation =
-    process.platform === "linux" ? "/build/icon.png" : "/build/icon.ico";
-
-  aboutWindow = new BrowserWindow({
-    width: 400,
-    height: shrinkWindowHeight(400),
-    title: "HR BatDetection App",
-    resizable: false,
-    fullscreenable: false,
-    icon: path.join(__dirname, iconLocation),
-    parent: win,
-    webPreferences: {
-      enableRemoteModule: true,
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-
-  aboutWindow.setMenu(null);
-  aboutWindow.loadURL(path.join("file://", __dirname, "/about.html"));
-
-  require("@electron/remote/main").enable(aboutWindow.webContents);
-
-  aboutWindow.on("close", () => {
-    aboutWindow = null;
-  });
-
-  aboutWindow.webContents.on("dom-ready", () => {
-    win.webContents.send("poll-night-mode");
-    win.webContents.send("night-mode");
-
-    if (aboutWindow) {
-      aboutWindow.webContents.send("night-mode");
-    }
-  });
-
-  ipcMain.on("night-mode-poll-reply", (e, nightMode) => {
-    win.webContents.send("night-mode");
-
-    if (aboutWindow) {
-      aboutWindow.webContents.send("night-mode");
-    }
-  });
 }
 
 function openProcessAudioWindow() {
@@ -197,10 +147,6 @@ function openProcessImageWindow() {
 
 function toggleNightMode() {
   win.webContents.send("night-mode");
-
-  if (aboutWindow) {
-    aboutWindow.webContents.send("night-mode");
-  }
 }
 
 function simulate(index) {
@@ -346,42 +292,7 @@ const createWindow = () => {
           },
         },
       ],
-    },
-    {
-      label: "Help",
-      submenu: [
-        {
-          label: "About",
-          click: () => {
-            openAboutWindow();
-          },
-        },
-        {
-          label: "Check For Updates",
-          click: () => {
-            win.webContents.send("update-check");
-          },
-        },
-        {
-          type: "separator",
-        },
-        {
-          label: "AudioMoth Filter Playground",
-          click: () => {
-            shell.openExternal("https://playground.openacousticdevices.info/");
-          },
-        },
-        {
-          type: "separator",
-        },
-        {
-          label: "Open Acoustic Devices Website",
-          click: () => {
-            shell.openExternal("https://openacousticdevices.info");
-          },
-        },
-      ],
-    },
+    }
   ];
 
   const menu = Menu.buildFromTemplate(menuTemplate);
