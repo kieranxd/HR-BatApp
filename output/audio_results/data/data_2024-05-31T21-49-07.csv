@@ -1,0 +1,5 @@
+species,time,detection_prob,species_prob
+Nyctalus noctula,0.2205,0.335,0.23
+Nyctalus leisleri,0.6005,0.344,0.229
+Myotis nattereri,0.8945,0.302,0.135
+Plecotus austriacus,1.4965,0.374,0.214

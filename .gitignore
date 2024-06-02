@@ -1,0 +1,5 @@
+package-lock.json
+node_modules/
+backstage/build/
+dist/
+batdetect2/.venv/

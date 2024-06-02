@@ -1,0 +1,6 @@
+species,time,detection_prob,species_prob
+Nyctalus leisleri,0.0565,0.415,0.282
+Nyctalus leisleri,0.6025,0.302,0.246
+Nyctalus leisleri,0.6845,0.341,0.319
+Nyctalus leisleri,1.0795,0.482,0.405
+Eptesicus serotinus,5.7075,0.342,0.2

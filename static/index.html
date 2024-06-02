@@ -1,0 +1,757 @@
+<!--GENERATED FILE. DO NOT EDIT MANUALLY-->
+
+
+
+
+
+
+
+
+
+<html>
+    <title>BatNet</title>
+<head>
+    <link rel="stylesheet" href="css/base_styles.css">
+<link rel="stylesheet" href="thirdparty/semantic.min.css">
+<link rel="stylesheet" href="css/box_styles.css">
+
+<script src="thirdparty/jquery-3.4.1.min.js"></script>
+<script src="thirdparty/jquery.tmpl.min.js"></script>
+<script src="thirdparty/semantic.min.js"></script>
+<script src="thirdparty/UTIF.js"></script>
+<script src="thirdparty/jszip.min.js"></script>
+
+
+<script src="base/file_input.js"> </script>
+<script src="base/image_loading.js">  </script>
+<script src="base/settings.js">   </script>
+<script src="base/detection.js">  </script>
+<script src="base/view.js">       </script>
+<script src="base/util.js">       </script>
+<script src="base/download.js">   </script>
+<script src="base/training.js">   </script>
+<script src="base/boxes.js">      </script>
+<script src="base/sorting.js">    </script>
+<script src="base/app.js">        </script>
+    <script src="bats/file_input.js"></script>
+<script src="bats/detection.js"></script>
+<script src="bats/boxes.js"></script>
+<script src="bats/sorting.js"></script>
+<script src="bats/download.js"></script>
+<script src="bats/training.js"></script>
+<script src="bats/settings.js"></script>
+<script src="bats/app.js"></script>
+
+    
+        
+    <template id="filetable-row-template">
+        <tr class="ui title table-row" filename="${filename}">
+            <!-- table row -->
+            <td>
+                <i class="dropdown icon"></i>
+                
+            <i class="image outline   unprocessed status icon"></i>
+            <i class="image             processed status icon" style="display:none"></i>
+            <i class="yellow exclamation triangle status icon" style="display:none"></i>
+            <i class="loading spinner             status icon" style="display:none"></i>
+
+                <label>${filename}</label>
+            </td>
+            
+    <td></td>
+    <td class="flags-cell" onclick="BatApp.Detection.on_flag(event);">
+        <div style="display:grid; grid-template-columns: 1fr 1fr">
+            <i class="flag icon lowconf-flag" style="visibility: hidden;" title="Low confidence"></i>
+            <i class="flag icon amounts-flag" style="visibility: hidden;"></i>
+        </div>
+    </td>
+
+        </tr>
+        <tr style="display:none" filename="${filename}">
+            <!-- content -->
+            <td class="ui content" style="padding:0px;"  colspan="10000">
+                
+            <!--------- MACRO loading_spinner() START---------->
+            <div class="loading-message" style="display:flex;justify-content: center;">
+              <i class="spinner loading icon"></i>
+              Loading...
+            </div>
+            <!--------- MACRO loading_spinner() END  ---------->
+
+                
+            <div class="filetable-content" style="display:none">
+                
+                <!--------- MACRO content_menu() START---------->
+                <div class="ui bottom attached secondary icon menu" style="border-top-width:0px; margin-bottom:0px;">
+                    <a class="process item" onclick="BatApp.Detection.on_process_image(event)" data-tooltip="Process Image" data-position="bottom left">
+                      <i class="play icon"></i>
+                    </a>
+
+                    <div class="ui simple dropdown icon item view-menu-button">
+                      <i class="eye icon"></i>
+                      
+                        <!--------- MACRO view_menu() START---------->
+                        <div class="menu view-menu">
+                          
+                            <div class="ui item disabled checkbox show-results-checkbox">
+                              <input type="checkbox">
+                              <label style="padding-top:2px;">Show results</label>
+                            </div>
+                            <div class="divider"></div>
+
+
+                          <div class="item brightness">
+                            <i class="sun icon"></i>
+                            Brightness
+                            <div class="ui slider brightness-slider" style="padding:0px; padding-top:5px;"></div>
+                            <after-insert-script style="display:none"> $(`.brightness-slider`).slider({
+                              onMove:on_brightness_slider, 
+                              max:30 
+                            }).slider('set value', 10); </after-insert-script>
+                          </div>
+
+                          
+                        </div>
+                        <!--------- MACRO view_menu() END  ---------->
+
+                    </div>
+
+                    
+
+                    
+
+                    <a class="item new-box" onclick="BatApp.Boxes.on_draw_new_box_button(event)"  data-tooltip="Add new box" data-position="bottom left">
+                      <i class="vector square icon"></i>
+                    </a>
+
+                    
+
+                    <a class="item help-menu-button"><i class="help icon"></i></a>
+                    
+                <div class="ui segment flowing popup">
+                  <ul class="ui list">
+                    <li><b>SHIFT + Drag</b> to move the image</li>
+                    <li><b>SHIFT + Mouse wheel</b> to zoom</li>
+                    <li><b>SHIFT + Double-click</b> to reset</li>
+                  </ul>
+                </div>
+                <after-insert-script style="display:none">$(`.help-menu-button`).popup({hoverable:false});</after-insert-script>
+
+                </div>
+                <!--------- MACRO content_menu() END  ---------->
+
+
+                <div class="image-container">
+                    
+                    <!--------- MACRO content_image() START---------->
+                    <div class="input view-box stripes" ondblclick="BatApp.ViewControls.on_viewbox_dblclick(event)">
+                        <div class="transform-box unselectable set-aspect-ratio-manually" style="transform: matrix(1,0,0,1,0,0);"
+                          onmousedown="BatApp.ViewControls.on_transformbox_mousedown(event)"
+                              onmousemove="BatApp.ViewControls.on_transformbox_mousemove(event)"
+                              onwheel    ="BatApp.ViewControls.on_transformbox_wheel(event)"
+                        >
+                          <img class="input-image unselectable" style="width:100%;" draggable="false">
+                          
+                            <div class="boxes overlay"></div>
+
+                      </div>
+                    </div>
+                    <!--------- MACRO content_image() END---------->
+
+                    
+            <!--------- MACRO progress_dimmer() START---------->
+            <div class="ui dimmer">
+              <div class="content processing">
+                <h2 class="ui inverted icon header">
+                  <i class="spinner loading icon"></i>
+                  <p>Processing...</p>
+                </h2>
+              </div>
+              <div class="content failed" style="display:none">
+                <h2 class="ui inverted icon header">
+                  <p>Processing failed</p>
+                </h2>
+                <p>Click to continue</p>
+              </div>
+            </div>
+            <!--------- MACRO progress_dimmer() END---------->
+
+                </div>
+            </div>
+
+            </td>
+        </tr>
+    </template>
+
+
+    <template id="box-overlay-template">
+    <div class="box-overlay" 
+         index="${index}"
+         style="top:${box[0]*100}%;        left:${box[1]*100}%; 
+                bottom:${100-box[2]*100}%; right:${100-box[3]*100}%;">
+        
+        <div class="box-label-container"  data-position="left center" data-variation="mini">
+          <p class="box-label" onclick="BatApp.Boxes.convert_boxlabel_into_input(event)">
+            ${label}
+          </p>
+
+          <select class="ui tiny search dropdown" style="display:none;"></select>
+          <i class="close red icon" title="Remove" onclick="BatApp.Boxes.on_remove_box_button(event)"></i>
+        </div>
+
+        <div class="drag-anchor move-anchor"></div>
+        <div class="drag-anchor resize-anchor"></div>
+    </div>
+    </template>
+
+
+
+
+    <svg height="0">
+      <defs>
+        <filter id="black-to-transparent">
+          <!-- image filter to set alpha=0 where the image is black -->
+          <feColorMatrix in="SourceGraphic"
+              type="matrix"
+              values="1 0 0 0 0
+                      0 1 0 0 0
+                      0 0 1 0 0
+                      255 255 255 0 0" />
+         </filter>
+
+         <filter id="white-to-red">
+          <feColorMatrix in="SourceGraphic"
+              type="matrix"
+              values="1 1 1 0 0
+                      0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 1 0" />
+         </filter>
+      </defs>
+    </svg>
+
+        
+    <template id="box-overlay-template">
+    <div class="box-overlay" 
+         index="${index}"
+         style="top:${box[0]*100}%;        left:${box[1]*100}%; 
+                bottom:${100-box[2]*100}%; right:${100-box[3]*100}%;">
+        
+        <div class="box-label-container"  data-position="left center" data-variation="mini">
+          <p class="box-label" onclick="BatApp.Boxes.convert_boxlabel_into_input(event)">
+            ${label}
+          </p>
+
+          <select class="ui tiny search dropdown" style="display:none;"></select>
+          <i class="close red icon" title="Remove" onclick="BatApp.Boxes.on_remove_box_button(event)"></i>
+        </div>
+
+        <div class="drag-anchor move-anchor"></div>
+        <div class="drag-anchor resize-anchor"></div>
+    </div>
+    </template>
+
+
+</head>
+
+
+<body onload="BatApp.init()">
+
+    
+
+    <div class="ui container menu page-wide">
+        <div class="header item" style="padding-top:0; padding-bottom:0">
+          <img src="logo.svg">
+        </div>
+
+        <a class="ui simple dropdown item">
+            <i class="file icon"></i>
+            <span class="text">Files</span>
+            <i class="dropdown icon"></i>
+            <div class="ui menu">
+              <label for="input_images" class="ui icon item">
+                <i class="images outline icon"></i>
+                Load Input Images
+              </label>
+              <input type="file" id="input_images" style="display:none"
+                     onchange="BatApp.FileInput.on_inputfiles_select(event)" accept="image/*" multiple>
+              
+              <label for="input_folder" class="ui icon item">
+                <i class="folder outline icon"></i>
+                Load Input Folder
+              </label>
+              <input type="file" id="input_folder" style="display:none" 
+                     onchange="BatApp.FileInput.on_inputfolder_select(event)"  webkitdirectory directory multiple>
+              
+              <div class="ui divider"></div>
+
+              <label for="annotations-input" class="ui icon item">
+                <i class="images icon"></i>
+                Load Annotations
+              </label>
+              <input type="file" id="annotations-input" style="display:none"
+                     onchange="BatApp.FileInput.on_annotations_select(event)" accept="image/*, application/zip, application/x-zip-compressed" multiple>
+              
+              
+            </div>
+          </a> <!--end files menu-->
+
+
+        <a class="ui simple item" id="settings-button" onclick="BatApp.Settings.on_settings()">
+          <i class="wrench icon"></i>
+          <span class="text">Settings</span>
+        </a>  
+
+    </div>
+
+
+
+    
+        
+        <div class="ui hidden section divider"></div> <!--whitespace-->
+        <div class="ui container page-wide" id="main-container">
+
+            
+            <div class="ui pointing secondary tabs menu">
+                <a class="active item" data-tab="detection">Detection</a>
+                <a class="item"        data-tab="training"> Training </a>
+            </div>
+
+
+            <div class="ui active tab segment unselectable" data-tab="detection" style="padding:0">
+                
+                <!-- MACRO detection_tab() START -->
+
+
+                <div class="ui top attached menu" style="border-top-width:0px;">
+                    <a class="process-all item" onclick="BatApp.Detection.on_process_all(event)">
+                        <i class="blue play icon"></i>
+                        Process All
+                    </a>
+                    <a class="processing item" style="display:none">
+                        <i class="loading spinner icon"></i>
+                        Processing...
+                    </a>
+                    <a class="cancel-processing item" onclick="BatApp.Detection.on_cancel_processing(event)"  style="display:none">
+                        <i class="red times icon"></i>
+                        Cancel
+                    </a>
+                    
+                    <a class="metadata item" id="metadata-button" onclick="BatApp.on_metadata()">
+                        <i class="list icon"></i>
+                        Metadata
+                    </a>
+                    <div class="ui simple dropdown download-all item" onclick="">
+                        <i class="download icon"></i>
+                        Download
+                        <div class="menu">
+                            <div class="item" id="download-csv-button" onclick="BatApp.Download.on_download_csv(event)" >Download CSV</div>
+                            <div class="item" id="download-json-button" onclick="BatApp.Download.on_download_json(event)">Download Annotations</div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+
+
+
+                <table class="ui fixed celled sortable unstackable table accordion" id="filetable" style="border:0px; margin-top:0px;">
+                    
+                <thead>
+                    <tr>
+                        <th class="six wide"  onclick="BatApp.Sorting.on_table_header(event)" title="Sort by filename" id="files-loaded-column-header">
+                            No Files Loaded
+                        </th>
+                        <th class="nine wide" onclick="BatApp.Sorting.on_table_header(event)" title="Sort by number of bats">
+                            Detected Bats
+                        </th>
+                        <th class="one wide" onclick="BatApp.Sorting.on_table_header(event)"  title="Sort by confidence">
+                            Flags
+                        </th>
+                    </tr>
+                </thead>
+
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+
+
+                <!-- MACRO detection_tab() END -->
+
+            </div>
+
+            <div class="ui bottom attached tab" data-tab="training">
+                
+                <div id="training-tab">
+                    
+                    
+                <div class="ui segment form" style="margin-top:0px;   grid-row: 1 / 3" id="class-selection-form">
+                    <div class="field" id="training-model-type-field">
+                        <h4 class="ui dividing header">Class selection</h4>
+
+
+                        <div class="ui form content">
+                            <div class="field">
+                                <label>Classes of interest</label>
+                                <div class="ui multiple selection fluid dropdown" id="classes-of-interest-dropdown">
+                                    <input type="hidden" name="language">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Select Classes</div>
+                                    <div class="menu" id="classes-of-interest-list">
+                                        <!-- <div class="item"> Banana </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui divider"></div>
+                    
+                            <div class="field" style="display:None">
+                                <label>Other classes</label>
+                                <div class="ui multiple selection fluid dropdown" id="other-classes-dropdown">
+                                    <input type="hidden" name="language">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Select Classes</div>
+                                    <div class="menu" id="other-classes-list">
+                                        <!-- <div class="item"> Banana </div> -->
+                                    </div>
+                                </div>
+                                <div class="ui divider"></div>
+                            </div>
+                    
+                            <div class="field" style="display:">
+                                <label>Unknown classes</label>
+                                <div class="ui multiple selection fluid dropdown" id="unknown-classes-dropdown">
+                                    <input type="hidden" name="language">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Select Classes</div>
+                                    <div class="menu" id="unknown-classes-list">
+                                        <!-- <div class="item"> Banana </div> -->
+                                    </div>
+                                </div>
+                                <div class="ui divider"></div>
+                            </div>
+                    
+                            <div class="field">
+                                <label>Rejected classes</label>
+                                <div class="ui labels" id="rejected-classes-list">
+                                    <!-- <div class="ui label"> Banana </div> -->
+                                </div>
+                            </div>
+
+                            <div class="ui divider"></div>
+                        </div>
+                    </div>
+                </div>
+                <script> $('#class-selection-form .dropdown').dropdown({clearable:false}) </script>
+
+                    
+                <div class="ui segment form" style="margin-top:0px;">
+                    <div class="field" id="training-model-type-field">
+                        <h4 class="ui dividing header">Training options</h4>
+
+                        
+                <div class="inline field">
+                  <div class="ui toggle checkbox" id="train-detector-checkbox">
+                    <input type="checkbox" class="hidden">
+                    <label>Train detector</label>
+                  </div>
+                </div>
+
+                <table class="ui fixed celled table" id="detector-classes">
+                  <tbody>
+                    <tr>
+                      <td data-label="Type">Bats</td>
+                      <td id="detector-positive-classes-count">0</td>
+                    </tr>
+                    <tr>
+                      <td>Non-Bats</td>
+                      <td id="detector-negative-classes-count">0</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+                        <div class="ui divider"></div>
+
+                        
+                <div class="inline field">
+                  <div class="ui toggle checkbox" id="train-classifier-checkbox">
+                    <input type="checkbox" class="hidden">
+                    <label>Train classifier</label>
+                  </div>
+                </div>
+
+                <table class="ui fixed celled table" id="classifier-classes">
+                  <thead>
+                      <tr>
+                          <th>Classes of interest</th>
+                          <th id="classes-of-interest-count">0</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- <tr>
+                          <td>Class name</td>
+                          <td>999</td>
+                      </tr> -->
+                  </tbody>
+
+                  <thead>
+                      <tr>
+                          <th>Other classes</th>
+                          <th id="other-classes-count">0</th>
+                      </tr>
+                  </thead>
+
+                  <thead>
+                      <tr>
+                          <th>Unknown classes</th>
+                          <th id="unknown-classes-count">0</th>
+                      </tr>
+                  </thead>
+
+                  <thead>
+                      <tr>
+                          <th>Rejected classes</th>
+                          <th id="rejected-classes-count">0</th>
+                      </tr>
+                  </thead>
+                </table>
+
+
+                        <div class="ui divider"></div>
+
+                        
+                <div class="field" id="training-learning-rate-field">
+                  
+                  <div class="ui input" id="settings-micrometers">
+                      <label style="padding:10px; width:50%;">Learning rate:</label>
+                      <input type="number" step="0.0001" min="0.00001" style="width: 5ch;" value="0.001" id='training-learning-rate'>
+                  </div>
+                </div>
+                <div class="field" id="training-number-of-epochs-field">
+                  <div class="ui input" id="settings-micrometers">
+                      <label style="padding:10px; width:50%;">Number of epochs:</label>
+                      <input type="number" step="1" min="1" style="width: 5ch;" value="10" id='training-number-of-epochs'>
+                  </div>
+                </div>
+
+                        
+                        <div class="ui divider"></div>
+
+                        
+                <div class="ui hidden message" id="training-model-info-message">
+                  <p>Starting point for retraining: <b id="training-model-info-label">xxx</b></p>
+                </div>
+
+                    </div>
+
+
+                    <div class="ui divider"></div>
+
+                    
+                <label class="ui violet basic fluid button" onclick="BatApp.Training.on_start_training()" id="start-training-button" style="margin-bottom: 20px;">
+                  <i class="shuffle icon"></i>
+                  Start Training
+                </label>
+
+                </div>
+                <script>
+                    $('#training-model-type-field .checkbox')
+                         .checkbox({onChange: _ => BatApp.Training.refresh_tab() } )
+                         .checkbox('set checked')
+                </script>
+
+                    <div class="ui segment form" id="training-new-modelname-field" style="display:none">
+                      <div class="ui field">
+                        <!--<div class="ui divider"></div>-->
+                        <label>Save trained model</label>
+                        <div class="ui action input">
+                          <input type="text" placeholder="New model name" id="training-new-modelname">
+                          <button class="ui violet right labeled icon button" onclick="BatApp.Training.on_save_model()">
+                            <i class="save icon"></i>
+                            Save Model
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+            
+
+        </div>
+
+
+
+    
+    <!-- Settings -->
+    <div class="ui tiny modal" id="settings-dialog">
+        <i class="close icon"></i>
+        <div class="header"> Settings </div>
+      
+        <div class="ui form content">
+
+            <div class="field">
+                <label>Active Model</label>
+                <div class="ui dropdown selection" id="settings-active-model">
+                  <input type="hidden" name="active-model">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">model</div>
+                  <div class="menu">
+                    <!--<div class="item" data-value="1">model_1</div>
+                    <div class="item" data-value="0">model_2</div>-->
+                  </div>
+                </div>
+
+                
+    <div class="ui labels known-classes" style="padding-top:5px;">
+      <b>Known classes:</b>
+      <!-- <div class="ui label">Classname</div> -->
+    </div>
+
+            </div>
+
+        
+            <div class="ui divider"></div>
+
+            <div class="field">
+              <label>Flags</label>
+              <div class="ui right labeled input" id="settings-confidence-threshold">
+                <input type="number" step="1" min="0" max="100" style="width: 5ch;" value="70" id='settings-confidence-threshold-input'>
+                <div class="ui basic label"> % </div>
+                <label style="padding:10px">Flag predictions with confidence below this value</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui toggle checkbox" id="settings-flag-negatives">
+                <input type="checkbox">
+                <label>Flag low-confidence Not-a-Bats</label>
+              </div>
+            </div>
+
+            <div class="ui divider"></div>
+            <div class="field">
+              <label>CSV Export</label>
+              <div class="ui toggle checkbox" id="settings-export-boxes">
+                <input type="checkbox">
+                <label>Include box coordinates</label>
+              </div>
+            </div>
+
+            <div class="ui divider"></div>
+
+            <div class="actions">
+                <div class="ui negative button">
+                Cancel
+                </div>
+                <div class="ui positive right labeled icon button" id="settings-ok-button">
+                Save
+                <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Training progress -->
+    <div class="ui tiny modal" id="training-modal">
+      <div class="header"> Training </div>
+
+      <div class="ui form content">
+        <div class="ui progress">
+          <div class="bar">
+            <div class="progress"></div>
+          </div>
+          <div class="label">Training Progress</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="ui negative button" id="cancel-training-button">
+          Stop Training
+        </div>
+        <div class="ui positive button hidden" id="ok-training-button">
+          Ok
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- Training progress -->
+    <div class="ui tiny modal" id="loading-files-modal">
+      <div class="ui form content">
+        <div class="ui progress">
+          <div class="bar">
+            <div class="progress"></div>
+          </div>
+          <div class="label">Loading Files</div>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="ui small modal" id="metadata-dialog">
+        <i class="close icon"></i>
+        <div class="header"> Metadata </div>
+          
+          <div class="ui form content">
+            <div class="fields">
+              <div class="six wide field">
+                <label>Site Name</label>
+                <input type="text" id="input_site_name">
+              </div>
+              <div class="six wide field">
+                <label>Site Location</label>
+                <input type="text" id="input_site_location">
+              </div>
+              <div class="six wide field">
+                <label>Site Responsible</label>
+                <input type="text" id="input_site_responsible">
+              </div>
+            </div>
+            <div class="fields">
+              <div class="six wide field">
+                <label>Country</label>
+                <input type="text" id="input_country">
+              </div>
+              <div class="six wide field">
+                <label>Latitude</label>
+                <input type="text" id="input_latitude">
+              </div>
+              <div class="six wide field">
+                <label>Longitude</label>
+                <input type="text" id="input_longitude">
+              </div>
+            </div>
+            <div class="fields">
+              <div class="eight wide field">
+                <label>Camera ID</label>
+                <input type="text" id="input_camera_id">
+              </div>
+            </div>
+            <div class="field">
+              <label>Other</label>
+              <textarea rows="4" id="input_other"></textarea>
+            </div>
+          </div>
+          
+          <div class="actions">
+            <div class="ui negative button">
+              Cancel
+            </div>
+            <div class="ui positive right labeled icon button">
+              Save Metadata
+              <i class="checkmark icon"></i>
+            </div>
+          </div>
+    </div>
+
+
+</body>
+</html>

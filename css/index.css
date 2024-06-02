@@ -1,0 +1,136 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+
+*, *::after, *::before {
+	-webkit-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-app-region: no-drag;
+	cursor: default;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th {
+    border-top: none;
+}
+
+body {
+    font-size: 10pt;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.wrapper .plot-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.grey {
+    color: #292A2D;
+}
+
+.button-icon {
+    width: 15px;
+    height: 15px;
+    vertical-align: initial;
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(277deg) brightness(106%) contrast(101%);
+}
+
+.page-item a {
+    height: 34.66px;
+}
+
+.sample-rate-pagination-option {
+    width: 48px;
+    text-align: center;
+}
+
+.autosave-pagination-option {
+    width: 48px;
+    text-align: center;
+}
+
+.mono-text {
+    font-variant-numeric: tabular-nums;
+}
+
+.value-span {
+    text-align: right;
+}
+
+body {
+  background: #292A2D;
+  color: #FFFFFF;
+}
+
+input {
+  background: #292A2D;
+  color: #FFFFFF;
+}
+
+select {
+  background: #292A2D;
+  color: #FFFFFF;
+}
+
+.modal-content {
+  background: #292A2D;
+  color: #FFFFFF;
+}
+
+.pagination > li > a
+{
+  background-color: #292A2D;
+  color: white
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+  background-color: white;
+  color: #292A2D;
+}
+
+.pagination > .page-item.disabled > a
+{
+  background-color: #292A2D;
+  color: lightgray
+}
+
+.pagination.disabled > .page-item.disabled > a:focus,
+.pagination.disabled > .page-item.disabled > a:hover,
+.pagination.disabled > .page-item.disabled > span:focus,
+.pagination.disabled > .page-item.disabled > span:hover
+{
+  background-color: lightgray;
+  color: #292A2D;
+}
+
+.page-item.active.disabled .page-link {
+  color: white;
+  background-color: grey;
+}
+
+.page-item.active .page-link {
+  border-color: white;
+}
+
+.modal-close-button {
+  color: white;
+}
+
+:not(button) {
+  box-shadow: none !important;
+}
+
+.selection-span {
+  color: #ffffff;
+}

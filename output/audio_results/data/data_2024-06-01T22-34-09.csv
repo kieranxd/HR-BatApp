@@ -1,0 +1,4 @@
+species,time,detection_prob,species_prob
+Pipistrellus pygmaeus,1.8545,0.33,0.21
+Pipistrellus pipistrellus,3.0755,0.363,0.267
+Pipistrellus nathusii,5.1345,0.302,0.213

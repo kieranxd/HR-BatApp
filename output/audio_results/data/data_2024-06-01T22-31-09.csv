@@ -1,0 +1,4 @@
+species,time,detection_prob,species_prob
+Plecotus austriacus,4.9495,0.307,0.234
+Plecotus austriacus,5.2325,0.337,0.215
+Pipistrellus pipistrellus,5.5795,0.361,0.292

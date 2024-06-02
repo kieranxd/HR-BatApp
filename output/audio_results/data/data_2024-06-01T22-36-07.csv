@@ -1,0 +1,4 @@
+species,time,detection_prob,species_prob
+Myotis nattereri,0.0015,0.352,0.257
+Myotis nattereri,0.0895,0.303,0.25
+Myotis nattereri,0.3125,0.388,0.364

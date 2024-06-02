@@ -1,0 +1,17 @@
+Filename,Date,Time,Flag,Multiple,Species,Code,Confidence level,Box
+0Empty.JPG,2022.08.01,21:32:05,,empty,,,,
+10Plecotus_auritus_Plecotus_auritus.JPG,2022.09.30,23:19:03,,multiple,Plecotus auritus_Plecotus austriacus,Paur,99.3,1812.5 819.9 2630.4 1169.4
+10Plecotus_auritus_Plecotus_auritus.JPG,2022.09.30,23:19:03,,multiple,Plecotus auritus_Plecotus austriacus,Paur,97.3,1190.6 1664.5 1953.6 2018.0
+1Myotis_myotis.JPG,2022.08.25,22:38:29,,,Myotis myotis_Myotis blythii,Mmyo,100.0,1790.9 1625.2 2566.0 2016.4
+2Myotis_myotis.JPG,2022.08.23,01:31:37,,,Myotis myotis_Myotis blythii,Mmyo,90.5,1591.0 679.8 2545.2 1090.0
+3Barbastella_barbastellus_Myotis_myotis.JPG,2020.08.29,01:19:59,,multiple,Barbastella barbastellus,Bbar,81.2,2531.6 1292.7 3026.1 1876.1
+3Barbastella_barbastellus_Myotis_myotis.JPG,2020.08.29,01:19:59,unsure,multiple,Myotis myotis_Myotis blythii,Mmyo,56.3,1490.6 730.8 2218.1 1321.5
+4Myotis_daubentonii.JPG,2022.08.16,02:08:08,,,Myotis daubentonii,Mdau,98.3,1095.3 1426.5 1971.1 1767.7
+5Myotis_nattereri_Myotis_daubentonii.JPG,2021.09.21,18:17:03,,multiple,Myotis nattereri,Mnat,99.9,3588.4 1211.7 4348.2 1663.9
+5Myotis_nattereri_Myotis_daubentonii.JPG,2021.09.21,18:17:03,,multiple,Myotis daubentonii,Mdau,95.3,1240.3 1810.4 1951.4 1980.1
+6Myotis_nattereri_Plecotus_auritus.JPG,2018.08.11,22:27:38,unsure,multiple,Plecotus auritus_Plecotus austriacus,Paur,61.8,1895.4 1389.0 3259.3 1815.8
+6Myotis_nattereri_Plecotus_auritus.JPG,2018.08.11,22:27:38,,multiple,Myotis nattereri,Mnat,99.4,951.6 1397.8 1636.9 1930.6
+7Myotis_nattereri.JPG,2022.12.03,16:59:36,,,Myotis nattereri,Mnat,99.9,3180.6 1205.4 3710.1 1936.0
+8Myotis_myotis.JPG,2019.10.18,21:44:40,,,Myotis myotis_Myotis blythii,Mmyo,98.8,2752.1 1531.7 3185.2 2099.4
+9Myotis_daubentonii_Myotis_daubentonii.JPG,2022.09.20,23:00:59,,multiple,Myotis daubentonii,Mdau,100.0,1969.9 2011.4 2703.6 2362.5
+9Myotis_daubentonii_Myotis_daubentonii.JPG,2022.09.20,23:00:59,,multiple,Myotis daubentonii,Mdau,99.5,1164.4 1713.3 1710.9 1889.8
